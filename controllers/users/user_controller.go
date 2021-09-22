@@ -5,27 +5,31 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os/user"
 
+	"github.com/alanyukeroo/bookstore_users-api/domain/users"
 	"github.com/gin-gonic/gin"
 )
 
 func CreateUser(c *gin.Context) {
-	var user user.User
-	bytes, err := ioutil.ReadAll(c.Request.Body)
-	fmt.Println(string(bytes))
-	fmt.Println(err)
+	var user users.User
 	fmt.Println(user)
 
+	bytes, err := ioutil.ReadAll(c.Request.Body)
+	fmt.Println(string(bytes))
+
 	if err != nil {
-		//TODO: Handle erro
+		//TODO: Handle error
+		return
+	}
+	fmt.Println(err)
+
+	if err := json.Unmarshal(bytes, &user); err != nil {
+		// TODO :Handle json error
 		return
 	}
 
-	if err := json.Unmarshal(bytes, &user); err != nil {
-		// TODO :Handle jeson error
-		return
-	}
+	fmt.Println(user)
+
 	c.String(http.StatusNotImplemented, "Ini ada POST Create User")
 }
 
