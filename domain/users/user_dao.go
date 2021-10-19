@@ -16,7 +16,6 @@ func something() {
 		fmt.Println(err)
 		return
 	}
-
 	fmt.Println(user.FirstName)
 }
 
